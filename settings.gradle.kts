@@ -17,6 +17,5 @@ dependencyResolutionManagement {
     }
 }
 
-include(":library")
-include(":mosaic")
+include(":ink")
 include(":example")

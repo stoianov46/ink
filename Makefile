@@ -11,7 +11,7 @@ help:
 	@echo "  make run            Build the demo and run it (needs a real terminal; q quits)"
 	@echo "  make install-bin    Put an `ink` command in ~/.local/bin (a symlink to the built app)"
 	@echo "  make uninstall-bin  Remove that command"
-	@echo "  make publish-local  Publish ink and ink-mosaic to ~/.m2 (what Arcana / CosmoCLI depend on)"
+	@echo "  make publish-local  Publish com.idea:ink to ~/.m2 (what Arcana / CosmoCLI depend on)"
 	@echo "  make clean          Remove build output"
 
 build:
@@ -40,7 +40,7 @@ uninstall-bin:
 
 publish-local:
 	./gradlew publishToMavenLocal
-	@echo "Published com.idea:ink and com.idea:ink-mosaic to ~/.m2/repository/com/idea/"
+	@echo "Published com.idea:ink to ~/.m2/repository/com/idea/"
 
 clean:
 	./gradlew clean

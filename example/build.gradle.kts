@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":mosaic"))
+    implementation(project(":ink"))
     implementation(libs.kotlinxCoroutines)
     testImplementation(kotlin("test"))
 }

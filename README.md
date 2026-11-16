@@ -7,26 +7,25 @@ model: a console that renders model output (Markdown, code, tables, diffs, tool 
 ```
 make run            # the demo: Arcana's main window, built from Ink's parts
 make build          # compile and test everything
-make publish-local  # publish com.idea:ink and com.idea:ink-mosaic to ~/.m2
+make publish-local  # publish com.idea:ink to ~/.m2
 ```
 
 ## Modules
 
 | Module | Artifact | Depends on | What it is |
 |---|---|---|---|
-| `:library` | `com.idea:ink` | nothing | Colour maths, `ThemeSpec` and the built-in themes, `InkColors` (every role a theme gives the UI), terminal size probing, text sanitising, **text editing (`TextEdit`: caret, selection, word and line operations), the key model and `KeyDispatcher` (paste repair, Cyrillic shortcuts)**, chart maths, dock planning, persisted `InkSettings`. Plain Kotlin, `Int` colours. |
-| `:mosaic` | `com.idea:ink-mosaic` | `ink`, Mosaic 0.18 | `Palette`, `Label`, `Panel`, `Card`, `Stack`, tabs, `StatusBar`, `ActionBar`, `InkShell` (sidebar left / top / right, footer), **`Bar` (6 styles), `HBar`, `Sparkline`, `HeatStrip`, `BarChart`, `Spinner`, `SliderRow`, `ContextBar`, `StatTile`, notices, `Table`, `Chips`, `Checkbox`, `ConfirmDialog`, `ListRow`**, **`TextFieldState`, `TextInput`, `TailText`, `WrappedText` (selection drawn in reverse video), `ScrollColumn`, `ScrollView` + `OutputState` (select mode, copy)**, `renderMarkdown`, `consoleLines`, `MessageField`, `Docked`. |
-| `:example` | – | `ink-mosaic` | The demo window: Arcana's main window, a **Components catalog** (every piece, live, with its code; the behaviours are interactive), a **Console** that plays a scripted model session in split panes, and a **Settings** screen (navigation position, panes). |
+| `:ink` | `com.idea:ink` | Mosaic 0.18 | **One artifact.** Plain Kotlin parts (packages `colors`, `theme`, `input`, `text`, `chart`, `layout`, `settings`, `terminal`, `scroll`): Colour maths, `ThemeSpec` and the built-in themes, `InkColors` (every role a theme gives the UI), terminal size probing, text sanitising, **text editing (`TextEdit`: caret, selection, word and line operations), the key model and `KeyDispatcher` (paste repair, Cyrillic shortcuts)**, chart maths, dock planning, persisted `InkSettings`. Plain Kotlin, `Int` colours. Mosaic parts (package `ui`): `Palette`, `Label`, `Panel`, `Card`, `Stack`, tabs, `StatusBar`, `ActionBar`, `InkShell` (sidebar left / top / right, footer), **`Bar` (6 styles), `HBar`, `Sparkline`, `HeatStrip`, `BarChart`, `Spinner`, `SliderRow`, `ContextBar`, `StatTile`, notices, `Table`, `Chips`, `Checkbox`, `ConfirmDialog`, `ListRow`**, **`TextFieldState`, `TextInput`, `TailText`, `WrappedText` (selection drawn in reverse video), `ScrollColumn`, `ScrollView` + `OutputState` (select mode, copy)**, `renderMarkdown`, `consoleLines`, `MessageField`, `Docked`. |
+| `:example` | – | `ink` | The demo window: Arcana's main window, a **Components catalog** (every piece, live, with its code; the behaviours are interactive), a **Console** that plays a scripted model session in split panes, and a **Settings** screen (navigation position, panes). |
 
 ```
-library/src/main/kotlin/com/idea/ink/
+ink/src/main/kotlin/com/idea/ink/
   colors/    Rgb.kt  ColorSupport.kt  ColorMath.kt    mix, hsv, hsl, WCAG contrast, 256-colour fitting, hex parsing
   theme/     ThemeSpec.kt  BuiltInThemes.kt  InkColors.kt
   layout/    Docks.kt                                 where panes dock, how large, what fits; the pane size keys; slider maths
   settings/  InkSettings.kt                           theme, navigation position, panes, density…: parsed safely, saved atomically
   terminal/  TerminalSize.kt  ResizeSignalGuard.kt
   text/      Sanitize.kt                              make arbitrary text safe for a Mosaic cell grid
-mosaic/src/main/kotlin/com/idea/ink/ui/
+ink/src/main/kotlin/com/idea/ink/ui/
   Palette.kt  Label.kt  Layout.kt  Panel.kt  TabBar.kt  Rainbow.kt  StatusBar.kt  Actions.kt  Shell.kt
   Markdown.kt  Console.kt  Docks.kt                   model output, the transcript model, split panes
 example/src/main/kotlin/…/example/
@@ -38,7 +37,7 @@ example/src/main/kotlin/…/example/
 
 ```kotlin
 dependencies {
-    implementation("com.idea:ink-mosaic:0.3.0")   // brings com.idea:ink and Mosaic along
+    implementation("com.idea:ink:0.4.0")   // brings Mosaic along
 }
 repositories { mavenLocal() }
 ```
